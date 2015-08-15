@@ -43,8 +43,7 @@ public class check_userInfo {
 		}catch(Exception ex)
 		{
 			ex.printStackTrace();
-		}
-		
+		}		
 		finally
 		{
 			if(rs!=null)
@@ -53,7 +52,6 @@ public class check_userInfo {
 					rs.close();
 					rs=null;
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}				
 			}
@@ -63,12 +61,10 @@ public class check_userInfo {
 					stmt.close();
 					stmt = null;
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}				
 			}
-		}
-		
+		}		
 		return false;
 	}
 }

@@ -1,10 +1,10 @@
 ﻿// 纯JS省市区三级联动
 // 2011-11-30 by http://www.cnblogs.com/zjfree
-var addressInit = function(_cmbProvince, _cmbCity, _cmbArea, defaultProvince, defaultCity, defaultArea)
+var addressInit = function(_cmbProvince, _cmbCity, defaultProvince, defaultCity)
 {
 	var cmbProvince = document.getElementById(_cmbProvince);
 	var cmbCity = document.getElementById(_cmbCity);
-	var cmbArea = document.getElementById(_cmbArea);
+/*	var cmbArea = document.getElementById(_cmbArea);*/
 	
 	function cmbSelect(cmb, str)
 	{
@@ -25,31 +25,37 @@ var addressInit = function(_cmbProvince, _cmbCity, _cmbArea, defaultProvince, de
 		option.value = str;
 		option.obj = obj;
 	}
-	
-	function changeCity()
-	{
-		cmbArea.options.length = 0;
-		if(cmbCity.selectedIndex == -1)return;
-		var item = cmbCity.options[cmbCity.selectedIndex].obj;
-		for(var i=0; i<item.areaList.length; i++)
-		{
-			cmbAddOption(cmbArea, item.areaList[i], null);
-		}
-		cmbSelect(cmbArea, defaultArea);
-	}
+//	
+//	function changeCity()
+//	{
+//		cmbArea.options.length = 0;
+//		if(cmbCity.selectedIndex == -1)return;
+//		var item = cmbCity.options[cmbCity.selectedIndex].obj;
+//		for(var i=0; i<item.areaList.length; i++)
+//		{
+//			cmbAddOption(cmbArea, item.areaList[i], null);
+//		}
+//		cmbSelect(cmbArea, defaultArea);
+//	}
 	function changeProvince()
 	{
 		cmbCity.options.length = 0;
 		cmbCity.onchange = null;
+//		cmbCity.style.display="inline";
 		if(cmbProvince.selectedIndex == -1)return;
 		var item = cmbProvince.options[cmbProvince.selectedIndex].obj;
+//		if(item.cityList.length==0){
+//			cmbCity.style.display="none";
+//			return;
+//		}
 		for(var i=0; i<item.cityList.length; i++)
 		{
+			
 			cmbAddOption(cmbCity, item.cityList[i].name, item.cityList[i]);
 		}
 		cmbSelect(cmbCity, defaultCity);
-		changeCity();
-		cmbCity.onchange = changeCity;
+//		changeCity();
+//		cmbCity.onchange = changeCity;
 	}
 	
 	for(var i=0; i<provinceList.length; i++)
@@ -58,26 +64,26 @@ var addressInit = function(_cmbProvince, _cmbCity, _cmbArea, defaultProvince, de
 	}
 	cmbSelect(cmbProvince, defaultProvince);
 	changeProvince();
-	cmbProvince.onchange = changeProvince;
+	cmbProvince.onchange = changeProvince;     /* onchange - 监听器*/
 }
 
 var provinceList = [
 {name:'北京', cityList:[		   
-{name:'市辖区', areaList:['东城区','西城区','崇文区','宣武区','朝阳区','丰台区','石景山区','海淀区','门头沟区','房山区','通州区','顺义区','昌平区','大兴区','怀柔区','平谷区']},		   
-{name:'县', areaList:['密云县','延庆县']}
+/*{name:'市辖区', areaList:['东城区','西城区','崇文区','宣武区','朝阳区','丰台区','石景山区','海淀区','门头沟区','房山区','通州区','顺义区','昌平区','大兴区','怀柔区','平谷区']},		   
+{name:'县', areaList:['密云县','延庆县']}*/
 ]},
 {name:'上海', cityList:[		   
-{name:'市辖区', areaList:['黄浦区','卢湾区','徐汇区','长宁区','静安区','普陀区','闸北区','虹口区','杨浦区','闵行区','宝山区','嘉定区','浦东新区','金山区','松江区','青浦区','南汇区','奉贤区']},		   
-{name:'县', areaList:['崇明县']}
+/*{name:'市辖区', areaList:['黄浦区','卢湾区','徐汇区','长宁区','静安区','普陀区','闸北区','虹口区','杨浦区','闵行区','宝山区','嘉定区','浦东新区','金山区','松江区','青浦区','南汇区','奉贤区']},		   
+{name:'县', areaList:['崇明县']}*/
 ]},
 {name:'天津', cityList:[		   
-{name:'市辖区', areaList:['和平区','河东区','河西区','南开区','河北区','红桥区','塘沽区','汉沽区','大港区','东丽区','西青区','津南区','北辰区','武清区','宝坻区']},		   
-{name:'县', areaList:['宁河县','静海县','蓟　县']}
+/*{name:'市辖区', areaList:['和平区','河东区','河西区','南开区','河北区','红桥区','塘沽区','汉沽区','大港区','东丽区','西青区','津南区','北辰区','武清区','宝坻区']},		   
+{name:'县', areaList:['宁河县','静海县','蓟　县']}*/
 ]},
 {name:'重庆', cityList:[		   
-{name:'市辖区', areaList:['万州区','涪陵区','渝中区','大渡口区','江北区','沙坪坝区','九龙坡区','南岸区','北碚区','万盛区','双桥区','渝北区','巴南区','黔江区','长寿区']},		   
+/*{name:'市辖区', areaList:['万州区','涪陵区','渝中区','大渡口区','江北区','沙坪坝区','九龙坡区','南岸区','北碚区','万盛区','双桥区','渝北区','巴南区','黔江区','长寿区']},		   
 {name:'县', areaList:['綦江县','潼南县','铜梁县','大足县','荣昌县','璧山县','梁平县','城口县','丰都县','垫江县','武隆县','忠　县','开　县','云阳县','奉节县','巫山县','巫溪县','石柱土家族自治县','秀山土家族苗族自治县','酉阳土家族苗族自治县','彭水苗族土家族自治县']},		   
-{name:'市', areaList:['江津市','合川市','永川市','南川市']}
+{name:'市', areaList:['江津市','合川市','永川市','南川市']}*/
 ]},
 {name:'四川', cityList:[		   
 {name:'成都市', areaList:['市辖区','锦江区','青羊区','金牛区','武侯区','成华区','龙泉驿区','青白江区','新都区','温江县','金堂县','双流县','郫　县','大邑县','蒲江县','新津县','都江堰市','彭州市','邛崃市','崇州市']},		   

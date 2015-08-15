@@ -7,7 +7,7 @@ import com.mysql.jdbc.Connection;
 
 public class DBHelper {
     private static final String driver = "com.mysql.jdbc.Driver";
-    private static final String url = "jdbc:mysql://localhost/test";
+    private static final String url = "jdbc:mysql://localhost/heritage_info";
     private static final String username = "root";
     private static final String password = "asd123";
     

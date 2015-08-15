@@ -31,20 +31,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script src="js/jasny-bootstrap.min.js"></script>
 
     <script type="text/javascript" src="js/jsAddress.js"></script>
+    <script type="text/javascript" src="js/functions.js"></script>
   
     <script type="text/javascript">
   //调用插件
     $(function(){
-      addressInit('Select1', 'Select2', 'Select3');
+      addressInit('Select1', 'Select2');
     });
+    function storeCookie(province,city){
+    	
+    	document.cookie = encodeURI("province=" + province);
+    	document.cookie = encodeURI("city=" + city);
+    	/* alert(decodeURI(encodeURI("province=" + province + ";city="+ city))); */
+    }
     </script>
-
-    <script type="text/javascript">
-function removeElement()
-{
-document.getElementById("area1").style.display="none";
-}
-</script>
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -56,7 +56,7 @@ document.getElementById("area1").style.display="none";
     <![endif]-->
   </head>
 
-  <body onload="removeElement()" style="background: url(images/photo-1432691301971-c8b920198bd7.jpeg) no-repeat center center fixed; 
+  <body onload="" style="background: url(images/photo-1432691301971-c8b920198bd7.jpeg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -70,48 +70,52 @@ document.getElementById("area1").style.display="none";
 
 
     <div class="container">
-
-<form class="form-signin" action="" method="post">
+<%request.setCharacterEncoding("UTF-8"); %>
+<form class="form-signin" action="<%=request.getContextPath() %>/servlet/insert_psInfo" method="post">
         <h2 class="form-signin-heading">Please sign up</h2>
-
-
-
+        <%request.setCharacterEncoding("UTF-8"); %>
         <label for="inputEmail" >邮箱</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="请输入有效的邮箱地址" required autofocus><br />
+        <input type="email" name="inputEmail" class="form-control" placeholder="请输入有效的邮箱地址" required autofocus><br />
         <label for="inputPassword">密码</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="请输入密码" required><br />
+        <input type="password" name="inputPassword" class="form-control" placeholder="请输入密码" required><br />
 
           <!-- Text input-->
           <label class="control-label" for="input01">姓名</label>
-          <input type="text" placeholder="请输入你的姓名" class="form-control"><br />
+          <input type="text" name="name" placeholder="请输入你的姓名" class="form-control"><br />
 
           <!-- Select Basic -->
           <label class="control-label">性别</label>
           <div class="controls">
-            <select class="form-control">
+            <select class="form-control" name="sex">
       <option>男性</option>
       <option>女性</option></select>
           </div><br />
 
           <label class="control-label" for="hometown">故乡</label> 
-      <!-- <input list="hometownlist" type="text" id="hometown">
+      <!-- <input list="hometownlist" type="text" name="hometown">
       <datalist id="hometownlist">
         <option>Bavette</option>
         <option>Cannelloni</option>
       </datalist> -->
       <div class="controls">
-      <select id="province1" class="form-control" style="float:left; width: 40%"></select>
-      <select id="city1" class="form-control" style="float:right; width: 40%"></select>
-      <select id="area1" class="form-control"></select>
+      <select id="province1" class="form-control" name="province" style="float:left; width: 40%"></select>
+      <select id="city1" class="form-control" name="city" style="float:right; width: 40%"></select>
+     <!--  <select id="area1" class="form-control" name="area"></select> -->
     </div>
     <br>
       <script type="text/javascript">
-        addressInit('province1', 'city1', 'area1');
-        </script>
+      	addressInit('province1', 'city1',valueProvince,valueCity);
+  		var strCookie = decodeURI(document.cookie);
+		/* alert(strCookie); */
+		var arrCookie = strCookie.split(';');
+		var valueProvince = arrCookie[0].split('=')[1];
+		var valueCity = arrCookie[1].split('=')[1];
+        addressInit('province1', 'city1',valueProvince,valueCity);
+      </script>
    
 
 <br>
-
+<br>
   <label class="control-label">头像</label>
 
 <div>
@@ -130,7 +134,7 @@ document.getElementById("area1").style.display="none";
 <br>
       <!--    <a href="signup2.jsp" class="btn btn-lg btn-success btn-block" type="submit">下一步</a>
       -->
-      <input type="submit" >下一步
+      <input type="submit" class="btn btn-lg btn-success btn-block" value="下一步" onclick="storeCookie(province1.value,city1.value)">
       </form>
 
   

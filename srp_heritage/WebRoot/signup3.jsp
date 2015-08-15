@@ -35,16 +35,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript">
   //调用插件
     $(function(){
-      addressInit('Select1', 'Select2', 'Select3');
+      addressInit('Select1', 'Select2');
     });
     </script>
 
-    <script type="text/javascript">
+<!-- <script type="text/javascript">
 function removeElement()
 {
 document.getElementById("area1").style.display="none";
 }
-</script>
+</script> -->
 
 <script type="text/javascript">
 function disable_select()
@@ -72,7 +72,7 @@ function disable_select()
     <![endif]-->
   </head>
 
-  <body onload="removeElement()" style="background: url(images/photo-1432691301971-c8b920198bd7.jpeg) no-repeat center center fixed; 
+  <body onload="" style="background: url(images/photo-1432691301971-c8b920198bd7.jpeg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -86,8 +86,13 @@ function disable_select()
 
 
     <div class="container">
-
-<form class="form-signin">
+<%
+   String e_mail = (String)session.getAttribute("e_mail");
+   System.out.print("得到了第二个email");
+   System.out.print(e_mail);
+   session.setAttribute("e_mail", e_mail);
+ %>
+<form class="form-signin" action="<%=request.getContextPath() %>/servlet/insert_mothInfo" method="post">
         <h2 class="form-signin-heading">你的母亲是...</h2>
         <br>
 
@@ -96,7 +101,8 @@ function disable_select()
 
           <!-- Text input-->
           <label class="control-label" for="input01">姓名</label>
-          <input type="text" placeholder="请输入你母亲的姓名" class="form-control"><br />
+          <input hidden="hidden" name="e_mail" value="<%=e_mail%>";/>
+          <input type="text" name="moth_name" placeholder="请输入你母亲的姓名" class="form-control"><br />
 
 
 
@@ -114,21 +120,29 @@ function disable_select()
       </datalist> -->
       <div class="controls">
         <br>
-      <select id="province1" class="form-control" style="float:left; width: 40%"></select>
-      <select id="city1" class="form-control" style="float:right; width: 40%"></select>
-      <select id="area1" class="form-control"></select>
+      <select id="province1" class="form-control" name="province" style="float:left; width: 40%"></select>
+      <select id="city1" class="form-control"  name="city" style="float:right; width: 40%"></select>
+<!--       <select id="area1" class="form-control"></select> -->
     </div>
     <br>
       <script type="text/javascript">
-        addressInit('province1', 'city1', 'area1');
-        </script>
+      	addressInit('province1', 'city1',valueProvince,valueCity);
+  		var strCookie = decodeURI(document.cookie);
+		/* alert(strCookie); */
+		var arrCookie = strCookie.split(';');
+		var valueProvince = arrCookie[0].split('=')[1];
+		var valueCity = arrCookie[1].split('=')[1];
+        addressInit('province1', 'city1',valueProvince,valueCity);
+      </script>
    
 
 <br>
 <br>
     <div>
         <a href="signup_success.jsp" style="vertical-align:bottom;">跳过</a>
-        <a href="signup_success.jsp" class="btn btn-lg btn-success btn-block" type="submit" style="float:right; width:50%;">下一步</a>
+       <!--   <a href="signup_success.jsp" class="btn btn-lg btn-success btn-block" type="submit" style="float:right; width:50%;">下一步</a>
+         -->   
+        <input type="submit" class="btn btn-lg btn-success btn-block" value="提交注册">
       </div>
       </form>
 
