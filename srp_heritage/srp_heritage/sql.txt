@@ -1,0 +1,19 @@
+create table user_info(
+e_mail varchar(254) primary key,
+password varchar(254),
+name varchar(254),
+sex  varchar(254),
+home_town varchar(254),
+path varchar(254))
+
+create table fath_info(
+e_mail varchar(254) primary key,
+fath_name varchar(254),
+home_town varchar(254)
+)
+
+create table moth_info(
+e_mail varchar(254) primary key,
+moth_name varchar(254),
+home_town varchar(254)
+)
