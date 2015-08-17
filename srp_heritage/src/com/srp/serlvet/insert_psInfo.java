@@ -92,8 +92,11 @@ public class insert_psInfo extends HttpServlet {
 //        
         String mothname = new String(request.getParameter("moth_name").getBytes("ISO-8859-1"),"utf-8");
 		String mothprovince = new String(request.getParameter("province_moth").getBytes("ISO-8859-1"),"utf-8");	
-		String mothcity = new String(request.getParameter("city_moth").getBytes("ISO-8859-1"),"utf-8");	
-		if(mothcity==null) mothcity="";
+		String mothcity = null;
+		if(request.getParameter("city_moth")==null) mothcity="";
+		else {
+			mothcity = new String(request.getParameter("city_moth").getBytes("ISO-8859-1"),"utf-8");	
+		}
 		String mothhometown = mothprovince + mothcity ;
 //		System.out.println(mothname + mothhometown);
 		new new_users(email,mothname,mothhometown,2);
