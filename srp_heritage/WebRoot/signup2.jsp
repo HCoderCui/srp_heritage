@@ -3,8 +3,9 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-<%request.setCharacterEncoding("UTF-8"); %>
+
 <!DOCTYPE html>
+<%request.setCharacterEncoding("UTF-8"); %>
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8">
@@ -46,6 +47,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	{
     	province1.disabled=true;
     	city1.disabled=true;
+    	var strCookie = decodeURI(document.cookie);
+		/* alert(strCookie); */
+		var arrCookie = strCookie.split(';');
+		var valueProvince = arrCookie[0].split('=')[1];
+		var valueCity = arrCookie[1].split('=')[1];
+        addressInit('province1', 'city1',valueProvince,valueCity);
   	}
   	else
   	{
@@ -54,29 +61,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	}
 }
 </script>
-
-<!--     <script type="text/javascript">
-function removeElement()
-{
-document.getElementById("area1").style.display="none";
-}
-</script>
-
-<script type="text/javascript">
-function disable_select()
-{
-  if(same_checkbox.checked)
-  {
-    province1.disabled=true;
-    city1.disabled=true;
-  }
-  else
-  {
-    province1.disabled=false;
-    city1.disabled=false;
-  }
-}
-</script> -->
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -102,19 +86,23 @@ function disable_select()
 
 
     <div class="container">
-<%
-   String e_mail = (String)session.getAttribute("e_mail");
-   System.out.print("得到了第一个email");
-   System.out.print(e_mail);
-   session.setAttribute("e_mail", e_mail);
- %>
-<form class="form-signin" action="<%=request.getContextPath() %>/servlet/insert_fathInfo" method="post" >
+    
+     <% 
+        String inputEmail = request.getParameter("inputEmail");
+	    session.setAttribute("inputEmail",inputEmail);
+	    session.setAttribute("inputPassword",request.getParameter("inputPassword"));
+	    session.setAttribute("name",request.getParameter("name"));
+	    session.setAttribute("sex",request.getParameter("sex"));
+	    session.setAttribute("province",request.getParameter("province"));
+        session.setAttribute("city",request.getParameter("city"));
+     %> 
+
+<form class="form-signin" action="signup3.jsp" method="post" >
         <h2 class="form-signin-heading">你的父亲是...</h2>
         <br>
           <!-- Text input-->
-          <input hidden="hidden" name="e_mail" value="<%=e_mail%>";/>
           <label class="control-label" for="input01">姓名</label>
-          <input type="text" name="fath_name" placeholder="请输入你父亲的姓名" class="form-control"><br />
+          <input type="text" name="fath_name" placeholder="请输入你父亲的姓名" class="form-control" required><br />
 
           <label class="control-label" for="hometown">故乡</label> 
           <div class="controls" style="float:right;">
@@ -130,20 +118,15 @@ function disable_select()
       </datalist> -->
       <div class="controls">
         <br>
-      <select id="province1" class="form-control" name="province" style="float:left; width: 40%"></select>
-      <select id="city1" class="form-control" name="city" style="float:right; width: 40%"></select>
+      <select id="province1" class="form-control" name="province_fath" style="float:left; width: 40%"></select>
+      <select id="city1" class="form-control" name="city_fath" style="float:right; width: 40%"></select>
       <!-- <select id="area1" class="form-control"></select> -->
     </div>
    
     <br>
       <script type="text/javascript">
-      	addressInit('province1', 'city1',valueProvince,valueCity);
-  		var strCookie = decodeURI(document.cookie);
-		/* alert(strCookie); */
-		var arrCookie = strCookie.split(';');
-		var valueProvince = arrCookie[0].split('=')[1];
-		var valueCity = arrCookie[1].split('=')[1];
-        addressInit('province1', 'city1',valueProvince,valueCity);
+      	addressInit('province1', 'city1');
+      	
       </script>
    
 

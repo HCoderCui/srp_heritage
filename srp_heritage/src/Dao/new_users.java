@@ -59,6 +59,7 @@ public class new_users {
 				sql = "insert into fath_info values('"+e_mail+"','"+pa_name+"','"+pa_town+"')";
 			else
 				sql = "insert into moth_info values('"+e_mail+"','"+pa_name+"','"+pa_town+"')";
+			System.out.println(sql);
 			stmt =  conn.createStatement();
 			stmt.execute(sql);
 		}catch(Exception ex)

@@ -4,6 +4,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <!DOCTYPE html>
+<%request.setCharacterEncoding("UTF-8"); %>
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8">
@@ -70,18 +71,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
     <div class="container">
-<%request.setCharacterEncoding("UTF-8"); %>
-<form class="form-signin" action="<%=request.getContextPath() %>/servlet/insert_psInfo" method="post">
+<form class="form-signin" action="signup2.jsp" method="post">
         <h2 class="form-signin-heading">Please sign up</h2>
-        <%request.setCharacterEncoding("UTF-8"); %>
         <label for="inputEmail" >邮箱</label>
-        <input type="email" name="inputEmail" class="form-control" placeholder="请输入有效的邮箱地址" required autofocus><br />
+        <input id="email" type="email" name="inputEmail" class="form-control" placeholder="请输入有效的邮箱地址" required autofocus><br />
         <label for="inputPassword">密码</label>
         <input type="password" name="inputPassword" class="form-control" placeholder="请输入密码" required><br />
-
+		
           <!-- Text input-->
           <label class="control-label" for="input01">姓名</label>
-          <input type="text" name="name" placeholder="请输入你的姓名" class="form-control"><br />
+          <input type="text" name="name" placeholder="请输入你的姓名" class="form-control" required><br />
 
           <!-- Select Basic -->
           <label class="control-label">性别</label>

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import Dao.new_users;
 
 public class insert_psInfo extends HttpServlet {
-	public static String E_mail=null;
+//	public static String E_mail=null;
 
 	/**
 	 * Constructor of the object.
@@ -70,31 +70,34 @@ public class insert_psInfo extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String e_mail = request.getParameter("inputEmail");
-		E_mail = e_mail;
-//		System.out.println(E_mail);
-		String password = request.getParameter("inputPassword");
-	    String name = request.getParameter("name");
-	    String sex = new String(request.getParameter("sex").getBytes("ISO-8859-1"),"utf-8");
-//	    System.out.println(sex);
-//	    String a = request.form("province1");
-	    String hometown = new String(request.getParameter("province").getBytes("ISO-8859-1"),"utf-8");
-//	    System.out.println(request.getParameter("city"));
-	    if(request.getParameter("city")!=null)
-	    	hometown += new String(request.getParameter("city").getBytes("ISO-8859-1"),"utf-8");
-//        System.out.println(home_town1);
-//        System.out.println(home_town2);
-//	    System.out.println(home_town);
-	    String path = null;
-//	    System.out.println(e_mail);
-//	    System.out.println(password);
-//	    System.out.println(name);
-	    new_users newUser = new new_users(e_mail,password,name,sex,hometown,path);
-	    HttpSession session = request.getSession();
-	    session.setAttribute("e_mail", e_mail);
-//	    request.setAttribute("e_mail", e_mail);  
-//       request.getRequestDispatcher("request.getContextPath()"+"/signup2.jsp").forward(request, response);
-	    response.sendRedirect(request.getContextPath()+"/signup2.jsp");
+		String email = (String) request.getSession().getAttribute("inputEmail");
+		String password = (String) request.getSession().getAttribute("inputPassword");
+		String name =(String) request.getSession().getAttribute("name");
+		String sex = (String) request.getSession().getAttribute("sex");
+		String province = (String) request.getSession().getAttribute("province");
+        String city = (String) request.getSession().getAttribute("city");
+        if(city==null) city="";
+        String hometown = province + city;
+//        System.out.println("city:" + hometown);
+        String path = null;
+        new new_users(email,password,name,sex,hometown,path);
+        
+        String fathname =  (String) request.getSession().getAttribute("fath_name");
+//        System.out.println(fathname);
+        String fathprovince = (String) request.getSession().getAttribute("province_fath");
+        String fathcity = (String) request.getSession().getAttribute("city_fath");
+        if(fathcity==null) fathcity="";
+        String fathhometown = fathprovince + fathcity;
+        new new_users(email,fathname,fathhometown,1);
+//        
+        String mothname = new String(request.getParameter("moth_name").getBytes("ISO-8859-1"),"utf-8");
+		String mothprovince = new String(request.getParameter("province_moth").getBytes("ISO-8859-1"),"utf-8");	
+		String mothcity = new String(request.getParameter("city_moth").getBytes("ISO-8859-1"),"utf-8");	
+		if(mothcity==null) mothcity="";
+		String mothhometown = mothprovince + mothcity ;
+//		System.out.println(mothname + mothhometown);
+		new new_users(email,mothname,mothhometown,2);
+		response.sendRedirect(request.getContextPath()+"/signup_success.jsp");
 	}
 
 	/**

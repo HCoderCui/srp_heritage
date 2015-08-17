@@ -4,6 +4,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <!DOCTYPE html>
+<%request.setCharacterEncoding("UTF-8"); %>
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8">
@@ -53,6 +54,12 @@ function disable_select()
   {
     province1.disabled=true;
     city1.disabled=true;
+    var strCookie = decodeURI(document.cookie);
+	/* alert(strCookie); */
+	var arrCookie = strCookie.split(';');
+	var valueProvince = arrCookie[0].split('=')[1];
+	var valueCity = arrCookie[1].split('=')[1];
+    addressInit('province1', 'city1',valueProvince,valueCity);
   }
   else
   {
@@ -86,23 +93,22 @@ function disable_select()
 
 
     <div class="container">
-<%
-   String e_mail = (String)session.getAttribute("e_mail");
-   System.out.print("得到了第二个email");
-   System.out.print(e_mail);
-   session.setAttribute("e_mail", e_mail);
- %>
-<form class="form-signin" action="<%=request.getContextPath() %>/servlet/insert_mothInfo" method="post">
+	<% 
+      session.setAttribute("fath_name",request.getParameter("fath_name"));       
+      session.setAttribute("province_fath",request.getParameter("province_fath"));
+      session.setAttribute("city_fath",request.getParameter("city_fath"));
+     %>
+<form class="form-signin" action="<%=request.getContextPath() %>/servlet/insert_psInfo" method="post">
+<%request.setCharacterEncoding("UTF-8"); %>
         <h2 class="form-signin-heading">你的母亲是...</h2>
         <br>
 
 
-
+			
 
           <!-- Text input-->
           <label class="control-label" for="input01">姓名</label>
-          <input hidden="hidden" name="e_mail" value="<%=e_mail%>";/>
-          <input type="text" name="moth_name" placeholder="请输入你母亲的姓名" class="form-control"><br />
+          <input type="text" name="moth_name" placeholder="请输入你母亲的姓名" class="form-control" required><br />
 
 
 
@@ -120,19 +126,14 @@ function disable_select()
       </datalist> -->
       <div class="controls">
         <br>
-      <select id="province1" class="form-control" name="province" style="float:left; width: 40%"></select>
-      <select id="city1" class="form-control"  name="city" style="float:right; width: 40%"></select>
+      <select id="province1" class="form-control" name="province_moth" style="float:left; width: 40%"></select>
+      <select id="city1" class="form-control"  name="city_moth" style="float:right; width: 40%"></select>
 <!--       <select id="area1" class="form-control"></select> -->
     </div>
     <br>
       <script type="text/javascript">
-      	addressInit('province1', 'city1',valueProvince,valueCity);
-  		var strCookie = decodeURI(document.cookie);
-		/* alert(strCookie); */
-		var arrCookie = strCookie.split(';');
-		var valueProvince = arrCookie[0].split('=')[1];
-		var valueCity = arrCookie[1].split('=')[1];
-        addressInit('province1', 'city1',valueProvince,valueCity);
+      	addressInit('province1', 'city1');
+      	
       </script>
    
 
