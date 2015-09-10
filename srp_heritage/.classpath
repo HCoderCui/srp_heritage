@@ -19,7 +19,7 @@
 			<attribute name="owner.project.facets" value="jst.web.jstl"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Develop Tool/eclipse/驱动Jar包/servlet-api.jar"/>
-	<classpathentry kind="lib" path="C:/Develop Tool/eclipse/驱动Jar包/mysql-connector-java-5.1.36-bin.jar"/>
+	<classpathentry kind="lib" path="JARs/mysql-connector-java-5.1.36-bin.jar"/>
+	<classpathentry kind="lib" path="JARs/servlet-api.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

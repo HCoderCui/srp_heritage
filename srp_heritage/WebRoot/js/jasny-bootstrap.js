@@ -872,7 +872,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Jasny Bootstrap\'s JavaScr
     this.original = {
       exists: this.$element.hasClass('fileinput-exists'),
       preview: this.$preview.html(),
-      hiddenVal: this.$hidden.val(),
+      hiddenVal: this.$hidden.val()
     }
     
     this.listen()
